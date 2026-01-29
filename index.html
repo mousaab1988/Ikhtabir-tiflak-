@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ذكاء الأطفال مجاناً 2026 | العباقرة الصغار</title>
+    <meta name="description" content="منصة تفاعلية لتنمية ذكاء الأطفال بأسلوب ممتع وآمن">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --success: #22c55e;
+            --warning: #facc15;
+            --danger: #ef4444;
+            --text: #0f172a;
+            --text-light: #475569;
+            --bg: #ffffff;
+            --shadow: 0 20px 40px rgba(0,0,0,.1);
+            --shadow-hover: 0 30px 60px rgba(99,102,241,0.25);
+            --radius: 24px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { min-height: 100vh; color: var(--text); background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); background-attachment: fixed; line-height: 1.6; }
+
+        /* Header */
+        header {
+            position: sticky; top: 0; backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.92);
+            box-shadow: var(--shadow); z-index: 1000; border-bottom: 3px solid var(--primary);
+        }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .logo i { font-size: 2.5rem; color: var(--primary); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-text .main { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 800; color: var(--text); }
+        .logo-text .tagline { font-size: 0.75rem; color: var(--text-light); }
+
+        /* Navigation */
+        nav { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        nav button {
+            padding: 0.7rem 1.4rem; border-radius: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; font-weight: 700; border: none; cursor: pointer; transition: var(--transition);
+            font-size: clamp(0.85rem, 1.2vw, 1rem); position: relative; overflow: hidden;
+        }
+        nav button::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: 0.5s;
+        }
+        nav button:hover::before { left: 100%; }
+        nav button.active, nav button:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+        /* Container & Sections */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        section { display: none; animation: fadeIn 0.5s ease; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Headings */
+        h2 { text-align: center; margin-bottom: 2rem; color: var(--primary); font-size: clamp(1.5rem, 3vw, 2.2rem); position: relative; padding-bottom: 1rem; }
+        h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 2px; }
+
+        /* Contact Form */
+        .contact-section { padding: 2rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin: 2rem auto; max-width: 800px; }
+        .contact-form { display: grid; gap: 1.5rem; margin-top: 2rem; }
+        .form-group { position: relative; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text); }
+        .form-control { width: 100%; padding: 1rem 1.2rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: var(--transition); background: #f8fafc; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: white; }
+        .form-control.error { border-color: var(--danger); background: #fef2f2; }
+        .error-message { color: var(--danger); font-size: 0.875rem; margin-top: 0.25rem; display: none; }
+        .error-message.show { display: block; }
+        textarea.form-control { min-height: 150px; resize: vertical; }
+        .form-submit { background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; }
+        .form-submit:hover:not(:disabled) { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .form-submit .spinner { display: none; width: 20px; height: 20px; border: 2px solid #ffffff; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .form-submit.sending .spinner { display: inline-block; }
+        .form-submit.sending .btn-text { display: none; }
+
+        /* Success Message */
+        .success-message { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 2rem; border-radius: var(--radius); text-align: center; margin-top: 2rem; display: none; animation: slideInUp 0.5s ease; }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .success-message i { font-size: 4rem; margin-bottom: 1rem; }
+        .success-message h3 { margin-bottom: 1rem; font-size: 1.8rem; }
+
+        /* Quiz Grid */
+        .quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .quiz-card { perspective: 1000px; transition: var(--transition); }
+        .quiz-card-inner { border-radius: var(--radius); padding: 1.5rem; text-align: center; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.6s ease, box-shadow 0.6s ease; transform-style: preserve-3d; background: white; height: 100%; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(99,102,241,0.1); }
+        .quiz-card:hover .quiz-card-inner { transform: rotateY(10deg) rotateX(5deg) translateZ(10px); box-shadow: var(--shadow-hover); }
+        .quiz-card i { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .quiz-card h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 800; margin-bottom: 0.75rem; color: var(--text); }
+        .quiz-card p { font-size: clamp(0.85rem, 1.5vw, 0.95rem); color: var(--text-light); line-height: 1.6; margin-bottom: 1.5rem; }
+        .quiz-card .actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+        .quiz-card button { padding: 0.5rem 1rem; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: clamp(0.75rem, 1.2vw, 0.9rem); transition: var(--transition); min-width: 80px; }
+        .quiz-card button.view { background: var(--success); color: white; }
+        .quiz-card button.edit { background: var(--warning); color: var(--text); }
+        .quiz-card button.delete { background: var(--danger); color: white; }
+        .quiz-card button:hover { transform: translateY(-2px); filter: brightness(110%); }
+
+        /* Info Box */
+        .info-box { max-width: 800px; margin: 2rem auto; padding: 2rem; border-radius: var(--radius); background: white; box-shadow: var(--shadow); line-height: 1.8; text-align: center; font-size: clamp(1rem, 1.5vw, 1.1rem); border: 1px solid rgba(99,102,241,0.1); }
+
+        /* Features Grid */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .feature-card { background: white; padding: 2rem; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid rgba(99,102,241,0.1); }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .feature-card i { font-size: 3rem; margin-bottom: 1rem; color: var(--primary); }
+
+        /* Modals */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; z-index: 2000; padding: 1rem; animation: fadeIn 0.3s ease; }
+        #modal { width: 95%; max-width: 1000px; height: 85vh; background: white; border-radius: var(--radius); position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        #modal iframe { width: 100%; height: 100%; border: none; border-radius: var(--radius); }
+        .close-btn { position: absolute; top: 1rem; left: 1rem; width: 40px; height: 40px; border-radius: 50%; background: var(--danger); color: white; border: none; cursor: pointer; font-size: 1.2rem; z-index: 10; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .close-btn:hover { transform: rotate(90deg) scale(1.1); }
+        .add-box { background: white; padding: 2rem; border-radius: var(--radius); width: 95%; max-width: 500px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s ease; }
+        .add-box input, .add-box textarea { width: 100%; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; border: 2px solid #e2e8f0; font-size: clamp(0.9rem, 1.2vw, 1rem); transition: var(--transition); }
+        .add-box input:focus, .add-box textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+        .add-box textarea { min-height: 150px; resize: vertical; }
+        .add-box .btn-group { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+        .add-box button { padding: 0.8rem 2rem; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: var(--transition); min-width: 120px; }
+        .add-box .save { background: var(--success); color: white; }
+        .add-box .cancel { background: var(--danger); color: white; }
+        .add-box button:hover { transform: translateY(-3px); filter: brightness(110%); }
+
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 3rem 0; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(99,102,241,0.1); }
+        .stat-card .number { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Footer */
+        footer { background: var(--text); color: white; padding: 3rem 1rem 1.5rem; margin-top: 4rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h4 { font-size: 1.2rem; margin-bottom: 1.5rem; color: white; }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.75rem; }
+        .footer-section ul li a { color: #cbd5e1; text-decoration: none; transition: var(--transition); }
+        .footer-section ul li a:hover { color: white; padding-right: 5px; }
+        .copyright { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 20px; right: 20px; padding: 1rem 1.5rem; background: var(--success); color: white; border-radius: var(--radius); box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 3000; animation: slideInRight 0.3s ease; display: flex; align-items: center; gap: 10px; max-width: 400px; }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* Loader */
+        .loader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 9999; align-items: center; justify-content: center; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner { flex-direction: column; gap: 1rem; }
+            nav { width: 100%; justify-content: center; }
+            .quiz-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .features-grid { grid-template-columns: 1fr; }
+            .add-box { padding: 1.5rem; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .quiz-grid { grid-template-columns: 1fr; }
+            nav button { padding: 0.6rem 1rem; font-size: 0.85rem; }
+            .add-box .btn-group { flex-direction: column; }
+            .add-box button { width: 100%; }
+            .contact-form { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر دليل الاستعمال -->
+    <div id="top-guide-btn">
+        <button onclick="openYoutube()">كيفية إضافة كويز</button>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header role="banner">
+        <div class="header-inner">
+            <a href="#home" class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <div class="logo-text">
+                    <span class="main">اختبر طفلك</span>
+                    <span class="tagline">العباقرة الصغار 2026</span>
+                </div>
+            </a>
+            
+            <nav role="navigation">
+                <button class="active" onclick="show('home', this)" aria-current="page">
+                    <i class="fa-solid fa-home"></i> الرئيسية
+                </button>
+                <button onclick="show('quizzes', this)">
+                    <i class="fa-solid fa-brain"></i> الكويزات
+                </button>
+                <button onclick="show('contact', this)">
+                    <i class="fa-solid fa-envelope"></i> تواصل معنا
+                </button>
+                <button onclick="show('parents', this)">
+                    <i class="fa-solid fa-user-tie"></i> لوحة الأولياء
+                </button>
+                <button onclick="show('about', this)">
+                    <i class="fa-solid fa-info-circle"></i> عن المنصة
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" role="main">
+        <!-- Home Section -->
+        <section id="home" class="active">
+            <h2>مرحباً بك في منصة العباقرة الصغار 2026 🎓</h2>
+            <div class="info-box">
+                <h3>🏆 لماذا تختار منصتنا؟</h3>
+                <p>منصة تفاعلية احترافية لتنمية ذكاء الأطفال بأسلوب ممتع وآمن وبدون ضغط.</p>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="number" id="quizCount">0</div>
+                        <p>كويز تفاعلي</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">4.8</div>
+                        <p>تقييم المستخدمين</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">10,000+</div>
+                        <p>طفل استفاد</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">100%</div>
+                        <p>مجاني</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-shield-alt"></i>
+                    <h3>آمن 100%</h3>
+                    <p>بيئة آمنة خالية من الإعلانات</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>تعليمي ممتع</h3>
+                    <p>اختبارات مصممة بواسطة مختصين</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-mobile-alt"></i>
+                    <h3>متعدد الأجهزة</h3>
+                    <p>يعمل على جميع الأجهزة</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>تتبع التقدم</h3>
+                    <p>تقارير مفصلة عن التطور</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 3rem;">
+                <h3>📞 هل لديك استفسار؟</h3>
+                <p>نحن هنا لمساعدتك! تواصل معنا عبر نموذج الاتصال</p>
+                <button onclick="show('contact')" style="margin-top: 1rem; padding: 0.8rem 2rem; background: #6366f1; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">
+                    <i class="fa-solid fa-envelope"></i> تواصل معنا الآن
+                </button>
+            </div>
+        </section>
+
+        <!-- Quizzes Section -->
+        <section id="quizzes">
+            <h2>🧠 الكويزات المتوفرة</h2>
+            <p class="info-box">اختر من مجموعة متنوعة من الاختبارات التعليمية الممتعة</p>
+            <div id="publicQuizzes" class="quiz-grid" role="list"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>📞 تواصل معنا</h2>
+            
+            <div class="contact-section">
+                <h3>💬 أرسل رسالتك إلينا</h3>
+                <p style="text-align: center; margin-bottom: 2rem; color: #475569;">
+                    سنكون سعداء بالاستماع إليك ومساعدتك
+                </p>
+
+                <!-- Netlify Form -->
+                <form name="contact" 
+                      method="POST" 
+                      data-netlify="true" 
+                      data-netlify-honeypot="bot-field"
+                      class="contact-form"
+                      id="contactForm"
+                      netlify>
+                    
+                    <input type="hidden" name="form-name" value="contact">
+                    <div hidden>
+                        <label>Don't fill this out: <input name="bot-field"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="fa-solid fa-user"></i> الاسم الكامل *</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                        <div class="error-message" id="nameError">الرجاء إدخال الاسم</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"><i class="fa-solid fa-envelope"></i> البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="example@email.com" required>
+                        <div class="error-message" id="emailError">الرجاء إدخال بريد إلكتروني صحيح</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messageType"><i class="fa-solid fa-tag"></i> نوع الرسالة *</label>
+                        <select id="messageType" name="messageType" class="form-control" required>
+                            <option value="">اختر نوع الرسالة</option>
+                            <option value="دعم فني">دعم فني</option>
+                            <option value="اقتراح">اقتراح</option>
+                            <option value="شراكة">شراكة</option>
+                            <option value="استفسار عام">استفسار عام</option>
+                        </select>
+                        <div class="error-message" id="messageTypeError">الرجاء اختيار نوع الرسالة</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject"><i class="fa-solid fa-heading"></i> موضوع الرسالة *</label>
+                        <input type="text" id="subject" name="subject" class="form-control" placeholder="موضوع الرسالة" required>
+                        <div class="error-message" id="subjectError">الرجاء إدخال موضوع الرسالة</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message"><i class="fa-solid fa-comment-dots"></i> الرسالة *</label>
+                        <textarea id="message" name="message" class="form-control" placeholder="اكتب رسالتك هنا..." rows="6" required></textarea>
+                        <div class="error-message" id="messageError">الرجاء كتابة الرسالة</div>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="privacy" name="privacy" required style="margin-top: 3px;">
+                            <span>أوافق على أن بياناتي ستستخدم للرد على استفساري فقط</span>
+                        </label>
+                        <div class="error-message" id="privacyError">الرجاء الموافقة على سياسة الخصوصية</div>
+                    </div>
+
+                    <button type="submit" class="form-submit" id="submitBtn">
+                        <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> إرسال الرسالة</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+                <div id="successMessage" class="success-message">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <h3>🎉 تم إرسال رسالتك بنجاح!</h3>
+                    <p>شكراً لتواصلك معنا، سنرد عليك في أقرب وقت ممكن.</p>
+                    <button onclick="resetForm()" style="margin-top: 1.5rem; padding: 0.7rem 1.5rem; background: white; color: #22c55e; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                        <i class="fa-solid fa-plus"></i> إرسال رسالة أخرى
+                    </button>
+                </div>
+            </div>
+
+            <div class="contact-section" style="margin-top: 2rem;">
+                <h3>📱 معلومات الاتصال</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow);">
+                        <i class="fa-solid fa-envelope" style="font-size: 2.5rem; color: #6366f1; margin-bottom: 1rem;"></i>
+                        <h4>البريد الإلكتروني</h4>
+                        <p>info@example.com</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow);">
+                        <i class="fa-solid fa-clock" style="font-size: 2.5rem; color: #6366f1; margin-bottom: 1rem;"></i>
+                        <h4>ساعات العمل</h4>
+                        <p>الأحد - الخميس</p>
+                        <p>9:00 ص - 5:00 م</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow);">
+                        <i class="fa-solid fa-reply" style="font-size: 2.5rem; color: #6366f1; margin-bottom: 1rem;"></i>
+                        <h4>وقت الرد</h4>
+                        <p>خلال 24 ساعة</p>
+                        <p>أيام العمل</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parents Dashboard -->
+        <section id="parents">
+            <h2>💼 لوحة تحكم الأولياء</h2>
+            <div class="info-box">
+                <p>إدارة الكويزات وإضافة محتوى تعليمي جديد لطفلك</p>
+                <button onclick="openAddModal()" class="add-quiz-btn" style="margin-top: 1rem; padding: 0.8rem 1.5rem; background: #6366f1; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">
+                    <i class="fa-solid fa-plus"></i> إضافة كويز جديد
+                </button>
+            </div>
+            <div id="parentQuizzes" class="quiz-grid" role="list"></div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>⭐ عن المنصة</h2>
+            <div class="info-box">
+                <h3>🎯 رؤيتنا</h3>
+                <p>نطمح لأن نكون المنصة العربية الرائدة في تنمية ذكاء الأطفال.</p>
+                <h3>📚 مبادئنا</h3>
+                <ul style="text-align: right; margin: 1rem 0;">
+                    <li>التعلم عبر اللعب والمرح</li>
+                    <li>الأمان الرقمي للأطفال</li>
+                    <li>التطوير المستمر</li>
+                    <li>الشمولية وسهولة الاستخدام</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>منصة اختبر طفلك</h4>
+                <p>المنصة العربية الرائدة لتنمية ذكاء الأطفال</p>
+            </div>
+            <div class="footer-section">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#home" onclick="show('home')">الرئيسية</a></li>
+                    <li><a href="#quizzes" onclick="show('quizzes')">الكويزات</a></li>
+                    <li><a href="#contact" onclick="show('contact')">تواصل معنا</a></li>
+                    <li><a href="#parents" onclick="show('parents')">لوحة الأولياء</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 اختبر طفلك - العباقرة الصغار. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="modalOverlay" class="modal-overlay" role="dialog">
+        <div id="modal">
+            <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+        </div>
+    </div>
+
+    <div id="addModal" class="modal-overlay" role="dialog">
+        <div class="add-box">
+            <h3 id="addModalTitle">إضافة كويز جديد</h3>
+            <input type="text" id="quizName" placeholder="اسم الكويز *" required>
+            <textarea id="quizCode" placeholder="ألصق كود HTML للكويز هنا *" required></textarea>
+            <div class="btn-group">
+                <button class="save" onclick="saveQuiz()"><i class="fa-solid fa-save"></i> حفظ</button>
+                <button class="cancel" onclick="closeAddModal()"><i class="fa-solid fa-times"></i> إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="alert"></div>
+
+    <script>
+        // زر دليل الاستعمال
+        function openYoutube() {
+            window.open("https://www.youtube.com/watch?v=xIJr8tvJSoE", "_blank");
+        }
+
+        // تطبيق الكويزات
+        let quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
+        let currentEditIndex = null;
+        const colors = [
+            ['#c7d2fe', '#e0e7ff'], ['#fef9c3', '#fde68a'], ['#bbf7d0', '#86efac'], ['#fbcfe8', '#f9a8d4'],
+            ['#ffc9c9', '#f87171'], ['#d9f99d', '#bef264'], ['#ddd6fe', '#c4b5fd'], ['#bae6fd', '#7dd3fc']
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+            setupContactForm();
+        });
+
+        function initializeApp() {
+            renderAllQuizzes();
+            updateStats();
+            show('home');
+        }
+
+        function show(sectionId, button = null) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+                if (button) {
+                    document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                }
+                if (sectionId === 'quizzes' || sectionId === 'parents') renderAllQuizzes();
+            }
+        }
+
+        // ✅ Netlify Forms Integration - مصحح
+        function setupContactForm() {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('blur', validateField);
+                input.addEventListener('input', clearError);
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!validateForm()) {
+                    showToast('الرجاء ملء جميع الحقول المطلوبة', 'warning');
+                    return;
+                }
+
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.classList.add('sending');
+                submitBtn.disabled = true;
+
+                try {
+                    const formData = new FormData(form);
+                    formData.append('form-name', 'contact');
+
+                    // ✅ التصحيح: استخدم المسار الحالي بدلاً من '/'
+                    const response = await fetch(window.location.pathname, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(formData).toString()
+                    });
+
+                    if (response.ok) {
+                        showSuccessMessage();
+                        form.reset();
+                        window.history.pushState({}, '', '?success=true');
+                    } else {
+                        throw new Error('Network error');
+                    }
+                } catch (error) {
+                    showToast('حدث خطأ، حاول مرة أخرى', 'error');
+                } finally {
+                    submitBtn.classList.remove('sending');
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        function validateField(e) {
+            const field = e.target;
+            const errorId = field.id + 'Error';
+            const errorElement = document.getElementById(errorId);
+            
+            if (!field.checkValidity()) {
+                field.classList.add('error');
+                if (errorElement) errorElement.classList.add('show');
+                return false;
+            }
+            
+            field.classList.remove('error');
+            if (errorElement) errorElement.classList.remove('show');
+            return true;
+        }
+
+        function clearError(e) {
+            const field = e.target;
+            field.classList.remove('error');
+            const errorId = field.id + 'Error';
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) errorElement.classList.remove('show');
+        }
+
+        function validateForm() {
+            const form = document.getElementById('contactForm');
+            const inputs = form.querySelectorAll('input, textarea, select');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!validateField({ target: input })) isValid = false;
+            });
+
+            return isValid;
+        }
+
+        function showSuccessMessage() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            if (form && successMessage) {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                showToast('تم إرسال رسالتك بنجاح!', 'success');
+            }
+        }
+
+        function resetForm() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            if (form && successMessage) {
+                form.reset();
+                form.style.display = 'block';
+                successMessage.style.display = 'none';
+                document.querySelectorAll('.error-message').forEach(error => error.classList.remove('show'));
+                document.querySelectorAll('.form-control').forEach(input => input.classList.remove('error'));
+            }
+        }
+
+        // Quiz Management
+        function renderAllQuizzes() {
+            renderPublicQuizzes();
+            renderParentQuizzes();
+            updateStats();
+        }
+
+        function renderPublicQuizzes() {
+            const container = document.getElementById('publicQuizzes');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            if (quizzes.length === 0) {
+                container.innerHTML = `
+                    <div class="info-box" style="grid-column: 1/-1;">
+                        <h3>📝 لا توجد كويزات بعد</h3>
+                        <button onclick="show('parents')" style="margin-top: 1rem; padding: 0.7rem 1.5rem; background: #6366f1; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">
+                            <i class="fa-solid fa-plus"></i> أضف أول كويز
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            quizzes.forEach((quiz, index) => {
+                const color = colors[index % colors.length];
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.innerHTML = `
+                    <div class="quiz-card-inner" style="background: linear-gradient(135deg, ${color[0]}, ${color[1]});">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h3>${escapeHtml(quiz.name)}</h3>
+                        <p>🔹 اضغط لفتح الكويز</p>
+                        <button class="view" onclick="openQuiz(${index})" style="padding: 0.7rem 1.5rem; background: #22c55e; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">
+                            <i class="fa-solid fa-play"></i> ابدأ الآن
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderParentQuizzes() {
+            const container = document.getElementById('parentQuizzes');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            quizzes.forEach((quiz, index) => {
+                const color = colors[index % colors.length];
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.innerHTML = `
+                    <div class="quiz-card-inner" style="background: linear-gradient(135deg, ${color[0]}, ${color[1]});">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h3>${escapeHtml(quiz.name)}</h3>
+                        <p>🔹 إدارة الكويز</p>
+                        <div class="actions">
+                            <button class="view" onclick="openQuiz(${index})"><i class="fa-solid fa-eye"></i> عرض</button>
+                            <button class="edit" onclick="editQuiz(${index})"><i class="fa-solid fa-edit"></i> تعديل</button>
+                            <button class="delete" onclick="deleteQuiz(${index})"><i class="fa-solid fa-trash"></i> حذف</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openQuiz(index) {
+            if (!quizzes[index]) return;
+            const quiz = quizzes[index];
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.innerHTML = `
+                    <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+                    <div style="width:100%;height:100%;">
+                        <iframe 
+                            src="data:text/html;charset=utf-8,${encodeURIComponent(quiz.code)}" 
+                            title="${escapeHtml(quiz.name)}"
+                            sandbox="allow-scripts allow-same-origin"
+                            style="width:100%;height:100%;border:none;"
+                        ></iframe>
+                    </div>
+                `;
+            }
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('addModal').style.display = 'none';
+        }
+
+        function openAddModal() {
+            currentEditIndex = null;
+            document.getElementById('quizName').value = '';
+            document.getElementById('quizCode').value = '';
+            document.getElementById('addModalTitle').textContent = 'إضافة كويز جديد';
+            document.getElementById('addModal').style.display = 'flex';
+        }
+
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+
+        function saveQuiz() {
+            const name = document.getElementById('quizName').value.trim();
+            const code = document.getElementById('quizCode').value.trim();
+            
+            if (!name || !code) {
+                showToast('يرجى ملء جميع الحقول', 'warning');
+                return;
+            }
+            
+            const quizData = { name, code, created: new Date().toISOString() };
+            
+            if (currentEditIndex === null) {
+                quizzes.push(quizData);
+                showToast('تم إضافة الكويز!', 'success');
+            } else {
+                quizzes[currentEditIndex] = quizData;
+                showToast('تم تحديث الكويز!', 'success');
+            }
+            
+            localStorage.setItem("quizzes", JSON.stringify(quizzes));
+            closeAddModal();
+            renderAllQuizzes();
+        }
+
+        function editQuiz(index) {
+            if (!quizzes[index]) return;
+            currentEditIndex = index;
+            const quiz = quizzes[index];
+            document.getElementById('quizName').value = quiz.name;
+            document.getElementById('quizCode').value = quiz.code;
+            document.getElementById('addModalTitle').textContent = 'تعديل الكويز';
+            document.getElementById('addModal').style.display = 'flex';
+        }
+
+        function deleteQuiz(index) {
+            if (!confirm('هل أنت متأكد من حذف هذا الكويز؟')) return;
+            quizzes.splice(index, 1);
+            localStorage.setItem("quizzes", JSON.stringify(quizzes));
+            showToast('تم حذف الكويز', 'success');
+            renderAllQuizzes();
+        }
+
+        function updateStats() {
+            document.getElementById('quizCount').textContent = quizzes.length;
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            
+            let icon = 'fa-info-circle';
+            if (type === 'success') icon = 'fa-check-circle';
+            else if (type === 'warning') icon = 'fa-exclamation-triangle';
+            else if (type === 'error') icon = 'fa-times-circle';
+            
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${message}</span>`;
+            toast.style.background = type === 'success' ? '#22c55e' : 
+                                   type === 'warning' ? '#facc15' : 
+                                   type === 'error' ? '#ef4444' : '#6366f1';
+            toast.style.display = 'flex';
+            
+            setTimeout(() => toast.style.display = 'none', 5000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check for success parameter
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                showSuccessMessage();
+                history.replaceState({}, '', window.location.pathname);
+            }
+        });
+    </script>
+
+    <style>
+        #top-guide-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+        }
+
+        #top-guide-btn button {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            cursor: pointer;
+            font-family: Cairo, sans-serif;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            animation: pulse 1.5s infinite;
+            transition: transform 0.2s;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 3px rgba(255,0,0,0.5); }
+            50% { box-shadow: 0 0 10px rgba(255,0,0,1); }
+            100% { box-shadow: 0 0 3px rgba(255,0,0,0.5); }
+        }
+
+        #top-guide-btn button:hover {
+            background: #e60000;
+            transform: scale(1.05);
+        }
+    </style>
+</body>
+</html>
